@@ -49,7 +49,7 @@ export const protect = (request: Request, response: Response, next: NextFunction
 
         const user = jwt.verify(token, process.env.JWT_SECRET);
 
-        request.user = user;
+        request.user = user as userTokenFormat;
 
         next();
 
@@ -62,6 +62,11 @@ export const protect = (request: Request, response: Response, next: NextFunction
 
         return;
     }
+}
+
+export interface userTokenFormat {
+    id: string,
+    username: string
 }
 
 // In the clientside, store the token in the cookies
